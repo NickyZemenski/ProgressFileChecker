@@ -1,0 +1,6 @@
+@ProgressFileChecker_HostAddress = http://localhost:5074
+
+GET {{ProgressFileChecker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
