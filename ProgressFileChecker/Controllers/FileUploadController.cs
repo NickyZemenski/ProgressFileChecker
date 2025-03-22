@@ -33,7 +33,7 @@ namespace ProgressFileChecker.Controllers
             {       
                 _authToken = await AuthenticateUser(folderInfo.Username, folderInfo.Password);
 
-                StartFolderMonitoring(folderInfo.Path);
+                StartFolderMonitoring(folderInfo.Path, folderInfo.Username);
 
                 return Ok($"Monitoring started for folder: {folderInfo.Path}");
             }
@@ -71,7 +71,7 @@ namespace ProgressFileChecker.Controllers
             }
         }
 
-        private void StartFolderMonitoring(string folderPath)
+        private void StartFolderMonitoring(string folderPath, string username)
         {
             string filter = "*.*";
             
@@ -89,18 +89,18 @@ namespace ProgressFileChecker.Controllers
                 EnableRaisingEvents = true
             };
 
-            _fileWatcher.Created += async (sender, e) => await OnFileCreated(e);
+            _fileWatcher.Created += async (sender, e) => await OnFileCreated(e,username);
         }
 
-        private async Task OnFileCreated(FileSystemEventArgs e)
+        private async Task OnFileCreated(FileSystemEventArgs e, string username)
         {
             if (!Directory.Exists(e.FullPath)) 
             {
-                await UploadFileToMoveIt(e.FullPath);
+                await UploadFileToMoveIt(e.FullPath, username);
             }
         }
 
-        private async Task UploadFileToMoveIt(string filePath)
+        private async Task UploadFileToMoveIt(string filePath , string username)
         {
             var fileName = Path.GetFileName(filePath); 
 
@@ -117,6 +117,11 @@ namespace ProgressFileChecker.Controllers
             using var formData = new MultipartFormDataContent();
             formData.Add(content); // this adds the file to the form we are submitting 
 
+            var targetFolder = $"/home/{username}";
+
+            formData.Add(new StringContent(targetFolder), "folder");
+
+
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, moveItUploadUrl)
             {
                 Content = formData // set the request content 
@@ -127,7 +132,7 @@ namespace ProgressFileChecker.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"File {fileName} uploaded successfully.");
+                Console.WriteLine($"File {fileName} uploaded successfully to {targetFolder}.");
             }
             else
             {
