@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156 d17.13
+VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressFileChecker", "ProgressFileChecker\ProgressFileChecker.csproj", "{C04D0DDC-A0AF-42B9-A117-ACDF029BCF32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceApp", "ServiceApp\ServiceApp.csproj", "{EDF5A26C-6B77-4CD2-844B-E4C764B0D031}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C04D0DDC-A0AF-42B9-A117-ACDF029BCF32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C04D0DDC-A0AF-42B9-A117-ACDF029BCF32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C04D0DDC-A0AF-42B9-A117-ACDF029BCF32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF5A26C-6B77-4CD2-844B-E4C764B0D031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDF5A26C-6B77-4CD2-844B-E4C764B0D031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDF5A26C-6B77-4CD2-844B-E4C764B0D031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDF5A26C-6B77-4CD2-844B-E4C764B0D031}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

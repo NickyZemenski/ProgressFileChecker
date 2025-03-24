@@ -6,7 +6,7 @@ using System.Text.Json;
 namespace ProgressFileChecker.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1")] // $"api/v{version}/" // maybe change this
     public class FileUploadController : ControllerBase
     {
         private static FileSystemWatcher _fileWatcher;
@@ -15,13 +15,14 @@ namespace ProgressFileChecker.Controllers
 
         private static readonly HttpClient _httpClient = new HttpClient();
 
-        private const string moveItBaseUrL = "https://testserver.moveitcloud.com"; // add my url unsure if its actually this
+        private const string moveItBaseUrL = "https://testserver.moveitcloud.com/api/v1"; // add my url unsure if its actually this
 
-        private const string moveItAuthUrl = $"{moveItBaseUrL}/auth/token";
+        private const string moveItAuthUrl = $"{moveItBaseUrL}/token"; 
 
-        private const string moveItUploadUrl = $"{moveItBaseUrL}/files/upload";
+        private const string moveItUploadUrl = $"{moveItBaseUrL}/files/upload"; 
 
         [HttpPost("start-monitoring")]
+
         public async Task<IActionResult> StartMonitoring([FromBody] FolderInfo folderInfo)
         {
             if (string.IsNullOrEmpty(folderInfo.Username) || string.IsNullOrEmpty(folderInfo.Password) || string.IsNullOrEmpty(folderInfo.Path))
@@ -73,7 +74,7 @@ namespace ProgressFileChecker.Controllers
 
         private void StartFolderMonitoring(string folderPath, string username)
         {
-            string filter = "*.*";
+            string filter = "*.*"; 
             
             if (_fileWatcher != null)
             {
@@ -83,7 +84,7 @@ namespace ProgressFileChecker.Controllers
             _fileWatcher = new FileSystemWatcher(folderPath)
             {
                 NotifyFilter = NotifyFilters.FileName,     // usually its a good idea to check if something gets updated
-                                                           // but due to the specification saying only add "nww files" and not modified i havent added   NotifyFilters.LastWrite
+                                                           // but due to the specification saying only add "nww files" and not modified i havent added NotifyFilters.LastWrite
 
                 Filter = $"{filter}",   // if we want /txt or other specifics only we can easily change our filter var
                 EnableRaisingEvents = true
@@ -140,10 +141,5 @@ namespace ProgressFileChecker.Controllers
             }
         }
     }
-
-
-
-
-
 
 }
