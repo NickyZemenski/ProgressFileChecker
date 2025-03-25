@@ -6,7 +6,7 @@ using System.Text.Json;
 namespace ProgressFileChecker.Controllers
 {
     [ApiController]
-    [Route("api/v1")] // $"api/v{version}/" // maybe change this
+    [Route("api/v1")] // $"api/v{version}/"
     public class FileUploadController : ControllerBase
     {
         private static FileSystemWatcher _fileWatcher;
@@ -15,7 +15,7 @@ namespace ProgressFileChecker.Controllers
 
         private static readonly HttpClient _httpClient = new HttpClient();
 
-        private const string moveItBaseUrL = "https://testserver.moveitcloud.com/api/v1"; // add my url unsure if its actually this
+        private const string moveItBaseUrL = "https://testserver.moveitcloud.com/api/v1"; 
 
         private const string moveItAuthUrl = $"{moveItBaseUrL}/token"; 
 

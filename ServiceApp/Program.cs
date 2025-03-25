@@ -146,16 +146,12 @@ internal class Program
 
          tokenRequest = new TokenRequestModel() { username = username, password = password };
 
-         tokenResponse = DeserializeObject<TokenResponseModel>(
-            Post(moveItAuthUrl, tokenRequest.ToString()).Result);
+         tokenResponse = DeserializeObject<TokenResponseModel>(Post(moveItAuthUrl, tokenRequest.ToString()).Result);
          userResponse = DeserializeObject<UserResponseModel>(Get(moveItUserUrl, "", tokenResponse.access_token).Result);
          homeFolderFiles = DeserializeObject<FilesResponseModel>(Get(moveItGetFiles(userResponse.homeFolderID.ToString()), "", tokenResponse.access_token).Result);
 
         StartFolderMonitoring();
-      //  string testFilePath = "D:\\Test\\Test1.txt";
-      //  RequestFileUploadModel fileRequest = new RequestFileUploadModel() { Id = userResponse.homeFolderID.ToString(), hash = RequestFileUploadModel.GetFileHash(testFilePath), file = testFilePath };
-      
-      //  FileUpload(moveItGetFiles(userResponse.homeFolderID.ToString()), fileRequest, tokenResponse.access_token);
+ 
 
     }
 
